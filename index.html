@@ -4,83 +4,108 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Vintage Rail Drop | Rare Vintage Alerts</title>
-
 <meta name="description" content="Vintage Rail Drop delivers rare vintage finds straight to your phone. Join daily alerts for the best 90s, Y2K, and streetwear drops."/>
 <meta name="theme-color" content="#0b0014"/>
-
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --pink: #ff2bd6;
+  --cyan: #00f5ff;
+  --bg: #05010a;
+  --bg2: #0e0020;
+  --glass: rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.1);
 }
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
 body {
-  background: radial-gradient(circle at top, #1a0033, #05010a 60%);
+  background: var(--bg);
   color: white;
   font-family: Inter, sans-serif;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* GRID BACKGROUND */
+/* FULL PAGE BACKGROUND IMAGE */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.12) saturate(1.4);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* GRID BG */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
   background-size: 60px 60px;
-  opacity: 0.12;
   pointer-events: none;
+  z-index: 0;
 }
 
-/* CRT SCANLINES */
+/* SCANLINES */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(255,255,255,0.03),
-    rgba(255,255,255,0.03) 1px,
+    rgba(255,255,255,0.025),
+    rgba(255,255,255,0.025) 1px,
     transparent 2px,
     transparent 4px
   );
   pointer-events: none;
-  opacity: 0.25;
+  z-index: 0;
   mix-blend-mode: overlay;
 }
 
-/* TOP TICKER */
+/* ─── TICKER ─── */
 .ticker {
   position: fixed;
   top: 0;
   width: 100%;
-  background: linear-gradient(90deg, #ff2bd6, #00f5ff);
-  color: black;
+  height: 36px;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  color: #000;
   font-weight: 800;
   font-family: Orbitron;
-  padding: 8px 0;
-  white-space: nowrap;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
   overflow: hidden;
   z-index: 999;
 }
 
-.ticker span {
-  display: inline-block;
-  padding-left: 100%;
-  animation: scroll 12s linear infinite;
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 18s linear infinite;
 }
 
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+.ticker-track span {
+  padding-right: 80px;
 }
 
-/* HERO */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── HERO ─── */
 .hero {
   position: relative;
   height: 100vh;
@@ -89,237 +114,503 @@ body::after {
   justify-content: center;
   text-align: center;
   overflow: hidden;
+  margin-top: 36px;
 }
 
-.hero img {
-  position: absolute;
-  width: 110%;
-  height: 110%;
-  object-fit: cover;
-  filter: brightness(0.35) saturate(1.5);
-  transform: scale(1.05);
-  animation: slowMove 12s ease-in-out infinite alternate;
-}
-
-@keyframes slowMove {
-  from { transform: scale(1.05) translateY(0px); }
-  to { transform: scale(1.1) translateY(-10px); }
-}
-
-.overlay {
+.hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(10,0,20,0.92));
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3) saturate(1.6);
+  transform: scale(1.05);
+  animation: slowPan 14s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes slowPan {
+  from { transform: scale(1.05) translateY(0); }
+  to { transform: scale(1.1) translateY(-12px); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0.2) 0%,
+    rgba(10,0,20,0.5) 50%,
+    rgba(5,1,10,0.97) 100%
+  );
+  z-index: 1;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 900px;
+  max-width: 860px;
   padding: 20px;
+}
+
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  opacity: 0.8;
+  margin-bottom: 18px;
 }
 
 h1 {
   font-family: Orbitron;
-  font-size: 54px;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
-  background: linear-gradient(90deg, #ff2bd6, #00f5ff);
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(255,0,255,0.3);
   animation: glow 2.5s ease-in-out infinite alternate;
+  line-height: 1.1;
 }
 
 @keyframes glow {
-  from { filter: drop-shadow(0 0 10px rgba(255,0,255,0.3)); }
-  to { filter: drop-shadow(0 0 22px rgba(0,255,255,0.5)); }
+  from { filter: drop-shadow(0 0 8px rgba(255,0,255,0.4)); }
+  to { filter: drop-shadow(0 0 20px rgba(0,255,255,0.5)); }
 }
 
 .tagline {
   margin-top: 20px;
-  font-size: 18px;
-  opacity: 0.85;
+  font-size: 17px;
+  line-height: 1.6;
+  opacity: 0.78;
+  max-width: 560px;
+  margin-inline: auto;
 }
 
-.cta {
-  margin-top: 35px;
-  display: inline-block;
-  padding: 14px 28px;
+/* STAT ROW */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-num {
+  font-family: Orbitron;
+  font-size: 22px;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-top: 3px;
+}
+
+.stat-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.15);
+  align-self: stretch;
+}
+
+.cta-row {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 32px;
   border-radius: 12px;
-  background: linear-gradient(90deg, #ff2bd6, #00f5ff);
-  color: black;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  color: #000;
   font-weight: 900;
+  font-size: 15px;
   text-decoration: none;
-  box-shadow: 0 0 25px rgba(0,255,255,0.3);
-  transition: transform 0.2s ease;
+  box-shadow: 0 0 30px rgba(0,255,255,0.25), 0 0 60px rgba(255,0,255,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.03em;
 }
 
-.cta:hover {
-  transform: scale(1.08);
+.cta-primary:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 40px rgba(0,255,255,0.4);
 }
 
-/* LIVE COUNTER */
-.counter {
-  margin-top: 18px;
+.cta-primary svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.cta-ghost {
+  display: inline-block;
+  padding: 14px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
   font-size: 14px;
-  opacity: 0.8;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, border-color 0.2s;
 }
 
-/* SECTIONS */
-section {
-  padding: 80px 10%;
+.cta-ghost:hover {
+  opacity: 1;
+  border-color: var(--cyan);
+}
+
+/* ─── WHAT YOU GET ─── */
+.features {
+  padding: 90px 8%;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 12px;
 }
 
 .section-title {
   font-family: Orbitron;
-  font-size: 28px;
-  margin-bottom: 40px;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
   text-transform: uppercase;
-  color: #00f5ff;
+  color: #fff;
+  margin-bottom: 48px;
 }
 
-/* GRID */
-.grid {
+.feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
 }
 
-.card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+.feature-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
   border-radius: 16px;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
+  padding: 28px 24px;
+  backdrop-filter: blur(12px);
   transition: 0.3s;
+  position: relative;
+  overflow: hidden;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  border-color: #00f5ff;
-  box-shadow: 0 0 30px rgba(0,255,255,0.15);
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
-.card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0,245,255,0.3);
+  box-shadow: 0 0 30px rgba(0,255,255,0.08);
 }
 
-.card-content {
-  padding: 15px;
+.feature-card:hover::before {
+  opacity: 1;
 }
 
-/* BOT */
-.bot {
+.feature-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+
+.feature-card h3 {
+  font-family: Orbitron;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--cyan);
+}
+
+.feature-card p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  opacity: 0.65;
+}
+
+/* ─── CATEGORIES ─── */
+.categories {
+  padding: 0 8% 90px;
+  position: relative;
+  z-index: 1;
+}
+
+.cat-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.cat-pill {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.15);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.04);
+  transition: 0.2s;
+}
+
+.cat-pill:hover {
+  border-color: var(--pink);
+  color: white;
+  background: rgba(255,43,214,0.08);
+}
+
+/* ─── SOCIAL PROOF / MANIFESTO ─── */
+.manifesto {
+  padding: 80px 8%;
   text-align: center;
-  background: linear-gradient(180deg, rgba(255,0,255,0.08), rgba(0,255,255,0.05));
-  border-top: 1px solid rgba(255,255,255,0.1);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(180deg, rgba(255,0,255,0.06), rgba(0,255,255,0.04));
+  background-color: rgba(5,1,10,0.85);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
 }
 
-.bot img {
-  width: 320px;
-  border-radius: 16px;
+.manifesto blockquote {
+  font-family: Orbitron;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 600;
+  line-height: 1.5;
+  max-width: 720px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #fff 30%, var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.manifesto-sub {
   margin-top: 20px;
-  box-shadow: 0 0 30px rgba(255,0,255,0.2);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.45;
 }
 
-/* FOOTER */
-footer {
+/* ─── FINAL CTA ─── */
+.final-cta {
+  padding: 100px 8%;
   text-align: center;
-  padding: 40px;
-  font-size: 14px;
+  position: relative;
+  z-index: 1;
+  background: rgba(5,1,10,0.7);
+}
+
+.final-cta h2 {
+  font-family: Orbitron;
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.final-cta p {
   opacity: 0.6;
+  font-size: 15px;
+  margin-bottom: 36px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 32px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  opacity: 0.45;
+  font-family: 'Space Mono', monospace;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  .stats { gap: 20px; }
+  .stat-divider { display: none; }
+  .cta-row { flex-direction: column; }
 }
 </style>
 </head>
-
 <body>
 
-<!-- TICKER -->
+<!-- PERSISTENT BACKGROUND -->
+<img class="page-bg" src="image1.jpg" alt=""/>
+
+<!-- TICKER (seamless: two copies of the same text) -->
 <div class="ticker">
-  <span>⚡ DROP ALERTS LIVE • RARE VINTAGE FINDS • 90s / Y2K STREETWEAR • JOIN TELEGRAM NOW • VINTAGE RAIL DROP ⚡</span>
+  <div class="ticker-track">
+    <span>⚡ DROP ALERTS LIVE &nbsp;•&nbsp; RARE VINTAGE FINDS &nbsp;•&nbsp; 90s / Y2K STREETWEAR &nbsp;•&nbsp; NIKE &nbsp;•&nbsp; ADIDAS &nbsp;•&nbsp; CARHARTT &nbsp;•&nbsp; TOMMY &nbsp;•&nbsp; LEVI'S &nbsp;•&nbsp; JOIN TELEGRAM NOW &nbsp;•&nbsp; VINTAGE RAIL DROP &nbsp;•&nbsp;</span>
+    <span>⚡ DROP ALERTS ALIVE &nbsp;•&nbsp; RARE VINTAGE FINDS &nbsp;•&nbsp; 90s / Y2K STREETWEAR &nbsp;•&nbsp; NIKE &nbsp;•&nbsp; ADIDAS &nbsp;•&nbsp; CARHARTT &nbsp;•&nbsp; TOMMY &nbsp;•&nbsp; LEVI'S &nbsp;•&nbsp; JOIN TELEGRAM NOW &nbsp;•&nbsp; VINTAGE RAIL DROP &nbsp;•&nbsp;</span>
+  </div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <img src="hero.jpg" id="heroImg"/>
-  <div class="overlay"></div>
+  <img class="hero-bg" src="image1.jpg" alt="Vintage Rail Drop hero" id="heroImg"/>
+  <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <h1>Vintage Rail Drop</h1>
+    <div class="hero-eyebrow">Curated Vintage Alerts · Telegram</div>
+
+    <h1>Vintage<br>Rail Drop</h1>
 
     <p class="tagline">
-      Rare vintage alerts delivered daily.  
-      90s heat. Y2K chaos. Streetwear grails straight to your phone.
+      Rare vintage finds delivered daily. 90s heat, Y2K chaos,
+      streetwear grails — straight to your phone.
     </p>
 
-    <div class="counter" id="counter">
-      🔥 0 drops posted today
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">100</div>
+        <div class="stat-label">Max drops/day</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">Daily</div>
+        <div class="stat-label">Fresh finds</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">Free</div>
+        <div class="stat-label">Always</div>
+      </div>
     </div>
 
-    <a class="cta" href="https://t.me/VintageRailDrop" target="_blank">
-      Join Telegram Drops →
-    </a>
+    <div class="cta-row">
+      <a class="cta-primary" href="https://t.me/VintageRailDrop" target="_blank">
+        <!-- Telegram icon -->
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+        Join the Drop
+      </a>
+      <a class="cta-ghost" href="#what-you-get">See what's inside ↓</a>
+    </div>
   </div>
 </div>
 
 <!-- FEATURES -->
-<section>
-  <div class="section-title">Latest Finds</div>
+<section class="features" id="what-you-get">
+  <div class="section-label">What you get</div>
+  <div class="section-title">Built for Collectors</div>
 
-  <div class="grid">
-    <div class="card">
-      <img src="image1.jpg"/>
-      <div class="card-content">
-        <h3>Rare Streetwear Drop</h3>
-        <p>Hand-picked vintage piece with high demand energy.</p>
-      </div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📡</div>
+      <h3>Instant Alerts</h3>
+      <p>Drops hit your Telegram the moment they're posted. No algorithm. No delay. Just the find.</p>
     </div>
-
-    <div class="card">
-      <img src="image2.jpg"/>
-      <div class="card-content">
-        <h3>Y2K Grail Find</h3>
-        <p>Distinct aesthetic contrast piece for collectors.</p>
-      </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧭</div>
+      <h3>Curated Only</h3>
+      <p>Everything is hand-selected. No bulk lots, no fast fashion. Only pieces worth your time.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🕹️</div>
+      <h3>90s / Y2K Focus</h3>
+      <p>Sportswear, workwear, denim, tees — the stuff that actually moves. Built for the culture.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔓</div>
+      <h3>Always Free</h3>
+      <p>No subscription, no paywall. Join once and stay in the loop as long as you want.</p>
     </div>
   </div>
 </section>
 
-<!-- BOT -->
-<section class="bot">
-  <div class="section-title">Live Telegram Alerts</div>
-  <p>Real drops. No fluff. Instant alerts.</p>
-
-  <img src="bot-preview.jpg"/>
-
-  <div style="margin-top:25px;">
-    <a class="cta" href="https://t.me/VintageRailDrop">
-      Open Telegram →
-    </a>
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="section-label">Categories</div>
+  <div class="section-title">What Drops</div>
+  <div class="cat-list">
+    <span class="cat-pill">Vintage Tees</span>
+    <span class="cat-pill">Jackets</span>
+    <span class="cat-pill">Denim</span>
+    <span class="cat-pill">Sportswear</span>
+    <span class="cat-pill">Workwear</span>
+    <span class="cat-pill">Y2K</span>
+    <span class="cat-pill">Nike</span>
+    <span class="cat-pill">Adidas</span>
+    <span class="cat-pill">Carhartt</span>
+    <span class="cat-pill">Tommy Hilfiger</span>
+    <span class="cat-pill">Levi's</span>
+    <span class="cat-pill">& More</span>
   </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <blockquote>One of one. Or none.</blockquote>
+  <p class="manifesto-sub">Vintage Rail Drop — Built for rare finds only</p>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Don't miss the drop.</h2>
+  <p>Free forever. Leave anytime. The good stuff goes fast.</p>
+  <a class="cta-primary" href="https://t.me/VintageRailDrop" target="_blank">
+    <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+    Open Telegram →
+  </a>
 </section>
 
 <footer>
-  © Vintage Rail Drop — Built for rare finds only.
+  <span>© Vintage Rail Drop</span>
+  <span>Rare finds. Real time.</span>
 </footer>
 
 <script>
-// LIVE COUNTER (fake but realistic engagement)
-let count = 12;
-setInterval(() => {
-  count += Math.floor(Math.random() * 3);
-  document.getElementById("counter").innerText = `🔥 ${count} drops posted today`;
-}, 3000);
-
-// subtle parallax feel
+// Subtle parallax on hero image
 document.addEventListener("mousemove", (e) => {
   const hero = document.getElementById("heroImg");
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * 10;
+  if (!hero) return;
+  const x = (e.clientX / window.innerWidth - 0.5) * 8;
+  const y = (e.clientY / window.innerHeight - 0.5) * 8;
   hero.style.transform = `translate(${x}px, ${y}px) scale(1.1)`;
 });
 </script>
