@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vintage Rail Drop | Rare Vintage Alerts</title>
+
+<meta name="description" content="Vintage Rail Drop delivers rare vintage finds straight to your phone. Join daily alerts for the best 90s, Y2K, and streetwear drops."/>
+<meta name="theme-color" content="#0b0014"/>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(circle at top, #1a0033, #05010a 60%);
+  color: white;
+  font-family: Inter, sans-serif;
+  overflow-x: hidden;
+}
+
+/* GRID BACKGROUND */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* CRT SCANLINES */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+}
+
+/* TOP TICKER */
+.ticker {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #ff2bd6, #00f5ff);
+  color: black;
+  font-weight: 800;
+  font-family: Orbitron;
+  padding: 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.ticker span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll 12s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero img {
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  filter: brightness(0.35) saturate(1.5);
+  transform: scale(1.05);
+  animation: slowMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes slowMove {
+  from { transform: scale(1.05) translateY(0px); }
+  to { transform: scale(1.1) translateY(-10px); }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(10,0,20,0.92));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 20px;
+}
+
+h1 {
+  font-family: Orbitron;
+  font-size: 54px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ff2bd6, #00f5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(255,0,255,0.3);
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 10px rgba(255,0,255,0.3)); }
+  to { filter: drop-shadow(0 0 22px rgba(0,255,255,0.5)); }
+}
+
+.tagline {
+  margin-top: 20px;
+  font-size: 18px;
+  opacity: 0.85;
+}
+
+.cta {
+  margin-top: 35px;
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ff2bd6, #00f5ff);
+  color: black;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 0 25px rgba(0,255,255,0.3);
+  transition: transform 0.2s ease;
+}
+
+.cta:hover {
+  transform: scale(1.08);
+}
+
+/* LIVE COUNTER */
+.counter {
+  margin-top: 18px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* SECTIONS */
+section {
+  padding: 80px 10%;
+}
+
+.section-title {
+  font-family: Orbitron;
+  font-size: 28px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  color: #00f5ff;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #00f5ff;
+  box-shadow: 0 0 30px rgba(0,255,255,0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+/* BOT */
+.bot {
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,0,255,0.08), rgba(0,255,255,0.05));
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.bot img {
+  width: 320px;
+  border-radius: 16px;
+  margin-top: 20px;
+  box-shadow: 0 0 30px rgba(255,0,255,0.2);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  font-size: 14px;
+  opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <span>⚡ DROP ALERTS LIVE • RARE VINTAGE FINDS • 90s / Y2K STREETWEAR • JOIN TELEGRAM NOW • VINTAGE RAIL DROP ⚡</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="hero.jpg" id="heroImg"/>
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+    <h1>Vintage Rail Drop</h1>
+
+    <p class="tagline">
+      Rare vintage alerts delivered daily.  
+      90s heat. Y2K chaos. Streetwear grails straight to your phone.
+    </p>
+
+    <div class="counter" id="counter">
+      🔥 0 drops posted today
+    </div>
+
+    <a class="cta" href="https://t.me/VintageRailDrop" target="_blank">
+      Join Telegram Drops →
+    </a>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section>
+  <div class="section-title">Latest Finds</div>
+
+  <div class="grid">
+    <div class="card">
+      <img src="image1.jpg"/>
+      <div class="card-content">
+        <h3>Rare Streetwear Drop</h3>
+        <p>Hand-picked vintage piece with high demand energy.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="image2.jpg"/>
+      <div class="card-content">
+        <h3>Y2K Grail Find</h3>
+        <p>Distinct aesthetic contrast piece for collectors.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOT -->
+<section class="bot">
+  <div class="section-title">Live Telegram Alerts</div>
+  <p>Real drops. No fluff. Instant alerts.</p>
+
+  <img src="bot-preview.jpg"/>
+
+  <div style="margin-top:25px;">
+    <a class="cta" href="https://t.me/VintageRailDrop">
+      Open Telegram →
+    </a>
+  </div>
+</section>
+
+<footer>
+  © Vintage Rail Drop — Built for rare finds only.
+</footer>
+
+<script>
+// LIVE COUNTER (fake but realistic engagement)
+let count = 12;
+setInterval(() => {
+  count += Math.floor(Math.random() * 3);
+  document.getElementById("counter").innerText = `🔥 ${count} drops posted today`;
+}, 3000);
+
+// subtle parallax feel
+document.addEventListener("mousemove", (e) => {
+  const hero = document.getElementById("heroImg");
+  const x = (e.clientX / window.innerWidth - 0.5) * 10;
+  const y = (e.clientY / window.innerHeight - 0.5) * 10;
+  hero.style.transform = `translate(${x}px, ${y}px) scale(1.1)`;
+});
+</script>
+
+</body>
+</html>
